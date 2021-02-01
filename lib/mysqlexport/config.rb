@@ -30,8 +30,8 @@ module Mysqlexport
       user_specified_options[:socket] || active_record_config.try(:[], :socket)
     end
 
-    def query
-      user_specified_options[:query]
+    def execute
+      user_specified_options[:execute]
     end
 
     def client

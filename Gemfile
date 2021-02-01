@@ -13,4 +13,6 @@ gem "rubocop", "~> 1.7"
 
 gem "mysql2", "~> 0.5.3"
 
-gem 'activerecord', "~> 6.1"
+gem "activerecord", "~> 6.1"
+
+gem "yaml", "~> 0.1"

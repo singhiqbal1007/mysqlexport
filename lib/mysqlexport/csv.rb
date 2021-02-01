@@ -7,25 +7,20 @@ require_relative "writer"
 module Mysqlexport
   class Csv
     include Writer
-    attr_reader :client, :query
+    attr_reader :client, :sql
 
     def initialize(options = {})
       @config = Mysqlexport::Config.new options
       @client = @config.client
-      @query = @config.query
+      @sql = @config.execute
     end
 
     def print
-      results = client.query(query)
-      results.each do |row|
-        puts row["emp_no"]
+      result = client.query(sql, :stream => true, :cache_rows => false, :as => :array)
+      result.each do |r|
+        puts r.to_csv(:force_quotes => false, :col_sep => "\t")
       end
     end
 
-    private
-
-    def slash_n
-      user_specified_options.fetch :slash_n, false
-    end
   end
 end
