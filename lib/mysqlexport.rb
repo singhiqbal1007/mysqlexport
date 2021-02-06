@@ -13,6 +13,15 @@ require_relative "mysqlexport/writer"
 
 module Mysqlexport
   class Error < StandardError; end
-  csv = Mysqlexport::Csv.new username: "root", password: "root", database: "test", execute: "select * from employees"
-  csv.print
+  options = {
+    username: "root",
+    password: "root",
+    database: "mysqlexport_test",
+    execute: "select * from employees",
+    force_quotes: "",
+    col_sep: "",
+    row_sep: ""
+  }
+  csv = Mysqlexport::Csv.new options
+
 end

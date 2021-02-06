@@ -34,6 +34,18 @@ module Mysqlexport
       user_specified_options[:execute]
     end
 
+    def force_quotes
+      user_specified_options[:force_quotes].to_s.downcase == "true" || nil
+    end
+
+    def col_sep
+      user_specified_options[:col_sep]
+    end
+
+    def row_sep
+      user_specified_options[:row_sep]
+    end
+
     def client
       return @client if @client.is_a? ::Mysql2::Client
 
