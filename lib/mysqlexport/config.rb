@@ -31,7 +31,11 @@ module Mysqlexport
     end
 
     def execute
-      user_specified_options[:execute]
+      user_specified_options[:execute] || "select * from #{table}"
+    end
+
+    def table
+      user_specified_options[:table]
     end
 
     def force_quotes
@@ -44,6 +48,10 @@ module Mysqlexport
 
     def row_sep
       user_specified_options[:row_sep]
+    end
+
+    def output_path
+      user_specified_options[:output_path]
     end
 
     def client
