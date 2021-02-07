@@ -10,4 +10,4 @@ options = cli.config
 
 puts options
 
-Mysqlexport::Csv.new(options).print
+Mysqlexport::Csv.new(options).to_path

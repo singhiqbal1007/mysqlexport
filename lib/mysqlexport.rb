@@ -18,9 +18,11 @@ module Mysqlexport
   #   password: "root",
   #   database: "mysqlexport_test",
   #   execute: "select * from employees",
-  #   force_quotes: "",
-  #   col_sep: "",
-  #   row_sep: ""
+  #   force_quotes: nil,
+  #   col_sep: nil,
+  #   row_sep: nil
   # }
-  # csv = Mysqlexport::Csv.new options
+  # puts options
+  # Mysqlexport::Csv.new(options).print
+  # Mysqlexport::Csv.new(options).to_stdout
 end

@@ -2,6 +2,7 @@
 
 require "mysqlexport"
 require "yaml"
+require_relative "../lib/mysqlexport/writer"
 
 DB_INFO = YAML.load_file(File.join(__dir__, "config/db_config.yml"))
 
