@@ -6,10 +6,9 @@ require "active_support/core_ext" if ::ActiveSupport::VERSION::MAJOR >= 3
 
 require "mysql2"
 
-require_relative "mysqlexport/version"
-require_relative "mysqlexport/config"
-require_relative "mysqlexport/csv"
-require_relative "mysqlexport/writer"
+require "mysqlexport/version"
+require "mysqlexport/config"
+require "mysqlexport/csv"
 
 module Mysqlexport
   class Error < StandardError; end
@@ -23,6 +22,5 @@ module Mysqlexport
   #   row_sep: nil
   # }
   # puts options
-  # Mysqlexport::Csv.new(options).print
   # Mysqlexport::Csv.new(options).to_stdout
 end

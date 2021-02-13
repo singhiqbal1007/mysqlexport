@@ -37,6 +37,4 @@ RSpec.describe "Mysqlexport::Writer" do
     filtered_path = klass.filter_path(path)
     expect(filtered_path[-26..-1]).to match("^[0-9]{10}_mysqlexport.csv$")
   end
-
-
 end

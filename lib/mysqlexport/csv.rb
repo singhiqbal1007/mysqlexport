@@ -3,7 +3,7 @@ if RUBY_VERSION >= "1.9"
 else
   require "fastercsv"
 end
-require_relative "writer"
+require "mysqlexport/writer"
 module Mysqlexport
   class Csv
     include Writer

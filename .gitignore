@@ -6,6 +6,6 @@
 /pkg/
 /spec/reports/
 /tmp/
-
+/spec/config/configuration.yml
 # rspec failure tracking
 .rspec_status

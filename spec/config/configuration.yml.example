@@ -1,3 +1,4 @@
+host: localhost
 username: root
-password: root
+password: 
 database: mysqlexport_test
