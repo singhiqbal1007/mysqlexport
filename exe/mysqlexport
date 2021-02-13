@@ -8,6 +8,4 @@ cli.parse_options
 
 options = cli.config
 
-puts options
-
 Mysqlexport::Csv.new(options).to_path
