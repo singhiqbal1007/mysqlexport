@@ -12,15 +12,4 @@ require "mysqlexport/csv"
 
 module Mysqlexport
   class Error < StandardError; end
-  # options = {
-  #   username: "root",
-  #   password: "root",
-  #   database: "mysqlexport_test",
-  #   execute: "select * from employees",
-  #   force_quotes: nil,
-  #   col_sep: nil,
-  #   row_sep: nil
-  # }
-  # puts options
-  # Mysqlexport::Csv.new(options).to_stdout
 end
