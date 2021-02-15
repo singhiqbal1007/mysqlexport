@@ -24,8 +24,9 @@ Or install it yourself as:
     $ mysqlexport --user=root --password=root --database=mysqlexport_test --table=employees
 
 ##### options
-    $ mysqlexport --help
 ```
+    $ mysqlexport --help
+    
     -c, --col-sep=,                  column separtor for csv, default is ","
     -d, --database=DATABASE          Set MySQL database
     -e, --execute=EXECUTE            The SQL statement to execute
@@ -47,12 +48,30 @@ options = {
   username: "root",
   password: "root",
   database: "mysqlexport_test",
-  execute: "select * from employees",
+  execute: "select * from employees"
 }
 Mysqlexport::Csv.new(options).to_stdout  # write it directly to $stdout
-Mysqlexport::Csv.new(options).to_path('/tmp/outfile.json')  # write it to a file at this path
-Mysqlexport::Csv.new(options).to_file(File.open('/tmp/outfile.json', 'w'))  # write it to a file handle
+Mysqlexport::Csv.new(options).to_path('/tmp/table.csv')  # write it to a file at this path
+Mysqlexport::Csv.new(options).to_file(File.open('/tmp/table.csv', 'w'))  # write it to a file handle
 ```
+##### All available options
+```ruby
+Mysqlexport::Csv.new(
+  host: "127.0.0.1", # optional, default is 127.0.0.1
+  port: "3306", # optional, default is 3306
+  username: "root", # optional if using Active record
+  password: "root", # optional if using Active record
+  database: "mysqlexport_test", # optional if using Active record
+  socket: "/path/to/mysql.sock", # optional
+  execute: "select * from employees", # not required if table is given
+  table: "employees", # not required if execute query is given
+  force_quotes: true, # optional, default is false
+  col_sep: ",", # optional, default is ","
+  row_sep: "", # optional, default is "\n"
+  output_path: "/tmp/employees.csv" # optional, default is current directory
+)
+```
+
 
 If you're running it inside a Rails application, it will default to the ActiveRecord connection config.
 
@@ -63,17 +82,17 @@ csv.to_stdout
 
 
 ## Development
-Rename the file `spec/configuration.yml.example` to `spec/configuration.yml`, then set the mysql configurations and test database. see example configuration below.
+Go to `spec/configuration.yml`, then set the mysql configurations and test database. see example configuration below.
 ```
 host: localhost
 username: root
 password: 
 database: mysqlexport_test
 ```
-Use `bundle install` to install the necessary development & testing gems and run rake for running the tests.
+Use `bundle install` to install the necessary development & testing gems and `bundle exec rake` for running the tests.
 ```
-bundle install
-rake
+$ bundle install
+$ bundle exec rake
 ```
 Database named `mysqlexport_test` will automatically be created.
 
