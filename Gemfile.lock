@@ -21,6 +21,7 @@ GEM
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
     ast (2.4.2)
+    benchmark (0.1.1)
     concurrent-ruby (1.1.8)
     diff-lcs (1.4.4)
     i18n (1.8.8)
@@ -70,6 +71,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  benchmark (~> 0.1)
   mysqlexport!
   rake (~> 13.0)
   rspec (~> 3.0)
