@@ -14,11 +14,14 @@ task :unit_tests do
   Rake::Task["spec"].execute
 end
 
-task :benchmark do
-  benchmark = Benchmark::RunBenchmark.new
-  benchmark.load_data unless ENV["SKIP_DATA_LOAD"].to_s.downcase == "true"
-  puts "Running Benchmarks..."
-  benchmark.run
+namespace :benchmark do
+  task run: ["benchmark:load_data", "benchmark:skip_data_load"]
+  task :load_data do
+    Benchmark::RunBenchmark.new.load_data
+  end
+  task :skip_data_load do
+    Benchmark::RunBenchmark.new.run
+  end
 end
 
 task default: %i[unit_tests rubocop]

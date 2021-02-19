@@ -19,6 +19,7 @@ module Benchmark
     end
 
     def run # rubocop:disable Metrics/MethodLength
+      puts "Running Benchmarks..."
       Benchmark.bm(20) do |x|
         test_set.each do |row_count|
           options = { host: DB_INFO["host"],
