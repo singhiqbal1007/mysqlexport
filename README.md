@@ -11,19 +11,24 @@ gem 'mysqlexport'
 ```
 
 And then execute:
-
-    $ bundle install
+```
+$ bundle install
+```
 
 Or install it yourself as:
+```
+$ gem install mysqlexport
+```
 
-    $ gem install mysqlexport
 
 ## Usage
 
 #### Binaries
-    $ mysqlexport --user=root --password=root --database=mysqlexport_test --table=employees
+```
+$ mysqlexport --user=root --password=root --database=mysqlexport_test --table=employees
+```
 
-##### options
+#### options
 ```
     $ mysqlexport --help
     
@@ -54,7 +59,7 @@ Mysqlexport::Csv.new(options).to_stdout  # write it directly to $stdout
 Mysqlexport::Csv.new(options).to_path('/tmp/table.csv')  # write it to a file at this path
 Mysqlexport::Csv.new(options).to_file(File.open('/tmp/table.csv', 'w'))  # write it to a file handle
 ```
-##### All available options
+#### All available options
 ```ruby
 Mysqlexport::Csv.new(
   host: "127.0.0.1", # optional, default is 127.0.0.1
@@ -95,6 +100,33 @@ $ bundle install
 $ bundle exec rake
 ```
 Database named `mysqlexport_test` will automatically be created.
+
+
+## Benchmarks
+
+#### Running benchmarks
+```
+$ bundle exec rake benchmark:run
+```
+It will insert 1 million rows in mysql and run the tests on it.
+
+
+#### Latest Benchmark Results
+```
+                           user     system      total        real
+1000    rows:          0.043286   0.003848   0.047134 (  0.047876)
+5000    rows:          0.142942   0.003945   0.146887 (  0.147594)
+10000   rows:          0.287696   0.004216   0.291912 (  0.310871)
+50000   rows:          1.417689   0.004253   1.421942 (  1.484315)
+100000  rows:          2.786458   0.012036   2.798494 (  2.839488)
+500000  rows:         13.706715   0.044224  13.750939 ( 15.014367)
+1000000 rows:         27.928350   0.183935  28.112285 ( 29.992699)
+```
+
+If you want to skip loading data into mysql
+```
+$ bundle exec rake benchmark:skip_data_load
+```
 
 ## License
 
