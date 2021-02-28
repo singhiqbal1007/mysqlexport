@@ -8,17 +8,23 @@ module Mysqlexport
                                   long: "--#{o.downcase}=#{o.upcase}",
                                   description: "Set MySQL #{o.downcase}" }
     end
+    option :to, {  short: "-T TO",
+                   long: "--to=CSV",
+                   description: "Export Mysql to CSV/JSON" }
     option :execute, {  short: "-e EXECUTE",
                         long: "--execute=EXECUTE",
                         description: "The SQL statement to execute" }
     option :force_quotes, { short: "-f false",
-                            long: "--force-quotes=true",
+                            long: "--force-quotes=false",
+                            type: "csv",
                             description: "force quotes to csv, default is false" }
     option :col_sep, {  short: "-c ,",
                         long: "--col-sep=,",
+                        type: "csv",
                         description: "column separtor for csv, default is \",\"" }
     option :row_sep, {  short: "-r \\n",
                         long: "--row-sep=\\n",
+                        type: "csv",
                         description: "row separator for csv, default is \"\\n\"" }
     option :output_path, {  short: "-o n",
                             long: "--out=PATH",
@@ -26,11 +32,13 @@ module Mysqlexport
     option :table, {  short: "-t TABLE",
                       long: "--table=TABLE",
                       description: "MySQL table you want to export" }
+    option :pretty, { short: "-y false",
+                      long: "--pretty=flase",
+                      type: "json",
+                      description: "display json pretty, default is false" }
     option :help, { long: "--help",
                     description: "Show help",
                     on: :tail,
-                    boolean: true,
-                    show_options: true,
-                    exit: 0 }
+                    boolean: true }
   end
 end

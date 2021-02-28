@@ -28,5 +28,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "activerecord", "~> 6.1"
   spec.add_dependency "mixlib-cli", "~> 2.1.8"
+  spec.add_dependency "multi_json", "~> 1.0"
   spec.add_dependency "mysql2", "~> 0.5.3"
 end

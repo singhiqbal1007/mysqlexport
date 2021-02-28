@@ -18,7 +18,7 @@ module Benchmark
       ld.start
     end
 
-    def run # rubocop:disable Metrics/MethodLength
+    def run
       puts "Running Benchmarks..."
       Benchmark.bm(20) do |x|
         test_set.each do |row_count|
@@ -33,7 +33,7 @@ module Benchmark
       end
     end
 
-    def test_set # rubocop:disable Metrics/MethodLength
+    def test_set
       rows = ld.rows
       ld.close
       arr = [1000]

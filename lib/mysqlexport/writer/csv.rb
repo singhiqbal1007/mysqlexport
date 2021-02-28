@@ -3,22 +3,18 @@ if RUBY_VERSION >= "1.9"
 else
   require "fastercsv"
 end
-require "mysqlexport/writer"
 module Mysqlexport
-  class Csv
-    include Writer
-    attr_reader :client, :sql, :config
-
+  class Csv < Writer
     def initialize(options = {})
-      @config = Mysqlexport::Config.new options
-      @client = @config.client
+      super(**options)
     end
 
     def to_file(file)
       result = client.query(config.execute, stream: true, cache_rows: false, as: :array)
-      file.write result.fields.to_csv(**csv_options)
+      csv_o = csv_options
+      file.write result.fields.to_csv(**csv_o)
       result.each do |row|
-        file.write row.to_csv(**csv_options)
+        file.write row.to_csv(**csv_o)
       end
     end
 

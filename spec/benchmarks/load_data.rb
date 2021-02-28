@@ -51,7 +51,7 @@ module Benchmark
       end
     end
 
-    def prepare_db # rubocop:disable Metrics/MethodLength
+    def prepare_db
       %(
         DROP DATABASE IF EXISTS #{db_info["database"]};
         CREATE DATABASE IF NOT EXISTS #{db_info["database"]};

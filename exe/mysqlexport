@@ -1,11 +1,17 @@
 #!/usr/bin/env ruby
 
 require "mysqlexport"
-require "mysqlexport/cli"
+require "mysqlexport/cli/cli"
+require "mysqlexport/cli/help_parser"
 
 cli = Mysqlexport::Cli.new
 cli.parse_options
-
 options = cli.config
+if options[:help] == true
+  Mysqlexport::HelpParser.new.parse(cli.options)
+  exit 0
+elsif options == {}
+  Mysqlexport::HelpParser.new.info
+end
 
-Mysqlexport::Csv.new(options).to_path
+# Mysqlexport::Csv.new(options).to_path

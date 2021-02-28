@@ -8,7 +8,9 @@ require "mysql2"
 
 require "mysqlexport/version"
 require "mysqlexport/config"
-require "mysqlexport/csv"
+require "mysqlexport/writer"
+require "mysqlexport/writer/csv"
+require "mysqlexport/writer/json"
 
 module Mysqlexport
   class Error < StandardError; end

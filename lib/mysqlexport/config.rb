@@ -6,6 +6,7 @@ module Mysqlexport
       @user_specified_options = user_specified_options.symbolize_keys
     end
 
+    # database options
     def host
       user_specified_options[:host] || active_record_config.try(:[], :host)
     end
@@ -38,6 +39,7 @@ module Mysqlexport
       user_specified_options[:table]
     end
 
+    # csv options
     def force_quotes
       user_specified_options[:force_quotes].to_s.downcase == "true" || nil
     end
@@ -52,6 +54,11 @@ module Mysqlexport
 
     def output_path
       user_specified_options[:output_path]
+    end
+
+    # json options
+    def pretty
+      user_specified_options[:pretty].to_s.downcase == "true" || nil
     end
 
     def client
