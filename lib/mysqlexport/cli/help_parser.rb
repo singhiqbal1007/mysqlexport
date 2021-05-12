@@ -2,6 +2,7 @@ require "optparse"
 module Mysqlexport
   class HelpParser
     def parse(hsh)
+      # this only works if ARGV contains --help
       OptionParser.new do |opts|
         opts.banner = "Usage: mysqlexport [options]"
         hsh.tap { |h| h.delete(:help) }
@@ -32,7 +33,9 @@ module Mysqlexport
     end
 
     def info
-      puts "mysqlexport info"
+      puts "[Mysqlexport v#{Mysqlexport::VERSION}]"
+      puts "run mysqlexport --help for options"
+      exit 0
     end
   end
 end

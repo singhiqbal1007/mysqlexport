@@ -5,13 +5,27 @@ require "mysqlexport/cli/cli"
 require "mysqlexport/cli/help_parser"
 
 cli = Mysqlexport::Cli.new
+
 cli.parse_options
 options = cli.config
-if options[:help] == true
-  Mysqlexport::HelpParser.new.parse(cli.options)
-  exit 0
-elsif options == {}
-  Mysqlexport::HelpParser.new.info
-end
 
-# Mysqlexport::Csv.new(options).to_path
+Mysqlexport::HelpParser.new.parse(cli.options) if options[:help] == true
+Mysqlexport::HelpParser.new.info if options == {}
+
+to = options[:to].to_s.downcase || ""
+case to
+when "csv"
+  Mysqlexport::Csv.new(options).to_path
+when "json"
+  begin
+    json_engine = options[:json_engine] || ""
+    require json_engine
+  rescue LoadError
+    # TODO: display proper warning
+    puts "[WARNING]: Invalid or no json engine provided using default engine"
+  end
+  Mysqlexport::Json.new(options).to_path
+else
+  # TODO: raise appropirate error here
+  raise "invalid options"
+end

@@ -5,6 +5,7 @@ require_relative "load_data"
 
 DB_INFO = YAML.load_file(File.join(__dir__, "../config/configuration.yml"))
 CSV_PATH = "#{__dir__}/results/csv".freeze
+JSON_PATH = "#{__dir__}/results/json".freeze
 
 module Benchmark
   class RunBenchmark
@@ -18,8 +19,8 @@ module Benchmark
       ld.start
     end
 
-    def run
-      puts "Running Benchmarks..."
+    def run_csv
+      puts "*******************Running CSV Benchmarks*******************"
       Benchmark.bm(20) do |x|
         test_set.each do |row_count|
           options = { host: DB_INFO["host"],
@@ -32,6 +33,23 @@ module Benchmark
         end
       end
     end
+
+    def run_json
+      puts "*******************Running JSON Benchmarks*******************"
+      Benchmark.bm(20) do |x|
+        test_set.each do |row_count|
+          options = { host: DB_INFO["host"],
+                      username: DB_INFO["username"],
+                      password: DB_INFO["password"],
+                      database: DB_INFO["database"],
+                      execute: "SELECT * FROM employees LIMIT #{row_count}",
+                      output_path: "#{JSON_PATH}/employees_#{row_count}.json" }
+          x.report("#{"%-7d".to_s % row_count} rows: ") { Mysqlexport::Csv.new(options).to_path }
+        end
+      end
+    end
+
+    private
 
     def test_set
       rows = ld.rows

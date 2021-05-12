@@ -61,6 +61,7 @@ module Mysqlexport
       user_specified_options[:pretty].to_s.downcase == "true" || nil
     end
 
+    # client options
     def client
       return @client if @client.is_a? ::Mysql2::Client
 

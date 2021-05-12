@@ -33,9 +33,13 @@ module Mysqlexport
                       long: "--table=TABLE",
                       description: "MySQL table you want to export" }
     option :pretty, { short: "-y false",
-                      long: "--pretty=flase",
+                      long: "--pretty=false",
                       type: "json",
                       description: "display json pretty, default is false" }
+    option :json_engine, { short: "-j oj",
+                           long: "--json_engine=oj",
+                           type: "json",
+                           description: "choose json engine" }
     option :help, { long: "--help",
                     description: "Show help",
                     on: :tail,

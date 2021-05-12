@@ -15,12 +15,30 @@ task :unit_tests do
 end
 
 namespace :benchmark do
-  task run: ["benchmark:load_data", "benchmark:skip_data_load"]
   task :load_data do
     Benchmark::RunBenchmark.new.load_data
   end
-  task :skip_data_load do
-    Benchmark::RunBenchmark.new.run
+
+  namespace :all do
+    task run: ["benchmark:load_data", "benchmark:all:skip_data_load"]
+    task :skip_data_load do
+      Benchmark::RunBenchmark.new.run_csv
+      Benchmark::RunBenchmark.new.run_json
+    end
+  end
+
+  namespace :csv do
+    task run: ["benchmark:load_data", "benchmark:csv:skip_data_load"]
+    task :skip_data_load do
+      Benchmark::RunBenchmark.new.run_csv
+    end
+  end
+
+  namespace :json do
+    task run: ["benchmark:load_data", "benchmark:json:skip_data_load"]
+    task :skip_data_load do
+      Benchmark::RunBenchmark.new.run_json
+    end
   end
 end
 
