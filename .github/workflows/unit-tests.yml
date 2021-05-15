@@ -1,0 +1,45 @@
+name: Unit Tests
+
+on: [push,pull_request]
+
+jobs:
+  unit-tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-20.04
+            mysql-version: 8.0
+          - os: ubuntu-18.04
+            mysql-version: 8.0
+          - os: ubuntu-18.04
+            mysql-version: 5.7
+          - os: ubuntu-16.04
+            mysql-version: 8.0
+          - os: ubuntu-16.04
+            mysql-version: 5.7
+          - os: macos-10.15
+            mysql-version: 8.0
+          - os: macos-10.15
+            mysql-version: 5.7
+          - os: macos-10.15
+            mysql-version: 5.6    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7.1
+    - name: Set up MySQL
+      uses: ankane/setup-mysql@v1
+      with:
+        mysql-version: ${{ matrix.mysql-version }}
+    - name: mysql config
+      run: |
+        mysqladmin -u root password root
+        bundle config --local build.mysql2 "--with-ldflags=-L/usr/local/opt/openssl/lib --with-cppflags=-I/usr/local/opt/openssl/include"
+    - name: Run Tests
+      run: |
+        bundle install
+        bundle exec rake unit_tests
