@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.7
   SuggestExtensions: false
 
 
@@ -27,4 +27,10 @@ Metrics/AbcSize:
   Enabled: false
 
 Metrics/MethodLength:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Layout/LineLength:
   Enabled: false

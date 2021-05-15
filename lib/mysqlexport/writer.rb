@@ -3,6 +3,7 @@ module Mysqlexport
     attr_reader :client, :sql, :config
 
     def initialize(options = {})
+      validate!(options)
       @config = Mysqlexport::Config.new options
       @client = @config.client
     end
@@ -14,8 +15,8 @@ module Mysqlexport
 
     def filter_path(path)
       path = ::Dir.pwd.to_s unless path.instance_of? ::String
-      file_name = "/#{::Time.now.to_i}_mysqlexport.csv" if ::File.directory?(path)
-      file_name = "/#{config.table}.csv" if ::File.directory?(path) && !config.table.nil?
+      file_name = "/#{::Time.now.to_i}_mysqlexport.#{extension}" if ::File.directory?(path)
+      file_name = "/#{config.table}.#{extension}" if ::File.directory?(path) && !config.table.nil?
       path += file_name.to_s
       path
     end
@@ -32,6 +33,21 @@ module Mysqlexport
       to_file s
       s.rewind
       s.read
+    end
+
+    private
+
+    def validate!(options)
+      raise Error, "[required option missing] execute or table required in options" if options[:table].nil? && options[:execute].nil?
+
+      true
+    end
+
+    def extension
+      # default extension is csv
+      return "json" if instance_of? Mysqlexport::Json
+
+      "csv"
     end
   end
 end

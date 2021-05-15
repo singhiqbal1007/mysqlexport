@@ -1,31 +1,51 @@
 RSpec.describe Mysqlexport::Writer do
   let(:options) { DB_INFO.clone }
-  let(:path) { Dir.pwd.to_s }
   let(:writer) { Mysqlexport::Writer.new options }
 
-  it "does not change path when filename is given" do
-    path = "#{path}/file.txt"
+  it "returns path with tablename when path is a dir and table option given" do
+    path = Dir.pwd.to_s
+    options[:table] = "test"
+    expect(writer.filter_path(path)).to eq("#{Dir.pwd}/#{options[:table]}.csv")
+  end
+
+  it "returns path with timestamp when path is a dir and table option not given" do
+    path = Dir.pwd.to_s
+    options.delete(:table)
+    options[:execute] = "test"
+    filtered_path = writer.filter_path(path)
+    expect(filtered_path[-26..]).to match("^[0-9]{10}_mysqlexport.csv$")
+  end
+
+  it "returns path with filename when path is a file and table option given" do
+    path = "#{Dir.pwd}/file.txt"
+    options[:table] = "table"
     expect(writer.filter_path(path)).to eq(path)
   end
 
-  it "choose current directory when path not given" do
+  it "returns path with filename when path is a file and table option not given" do
+    path = "#{Dir.pwd}/file.txt"
+    options.delete(:table)
+    options[:execute] = "test"
+    expect(writer.filter_path(path)).to eq(path)
+  end
+
+  it "returns current directory with tablename when path not given and table option given" do
     path = nil
+    options[:table] = "table"
+    expect(writer.filter_path(path)).to eq("#{Dir.pwd}/#{options[:table]}.csv")
+  end
+
+  it "returns current directory with timestamp when path not given and table option given" do
+    path = nil
+    options.delete(:table)
+    options[:execute] = "test"
     filtered_path = writer.filter_path(path)
     expect(filtered_path[0..-28]).to eq(Dir.pwd.to_s)
+    expect(filtered_path[-26..]).to match("^[0-9]{10}_mysqlexport.csv$")
   end
 
-  it "returns path with tablename when path is dir and tablename exist" do
-    options["table"] = "phone"
-    expect(writer.filter_path(path)).to eq("#{Dir.pwd}/#{options["table"]}.csv")
-    path = nil
-    expect(writer.filter_path(path)).to eq("#{Dir.pwd}/#{options["table"]}.csv")
-  end
-
-  it "returns path with timestamp when path is dir and tablename does not exist" do
-    filtered_path = writer.filter_path(path)
-    expect(filtered_path[-26..-1]).to match("^[0-9]{10}_mysqlexport.csv$")
-    path = nil
-    filtered_path = writer.filter_path(path)
-    expect(filtered_path[-26..-1]).to match("^[0-9]{10}_mysqlexport.csv$")
+  it "cannot create write object when table and execute both are not present" do
+    options.delete(:table)
+    expect { Mysqlexport::Writer.new(options) }.to raise_error(::Mysqlexport::Error)
   end
 end

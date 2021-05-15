@@ -13,5 +13,9 @@ require "mysqlexport/writer/csv"
 require "mysqlexport/writer/json"
 
 module Mysqlexport
-  class Error < StandardError; end
+  class Error < StandardError
+    def initialize(msg = "Mysqlexport::Error")
+      super(msg)
+    end
+  end
 end

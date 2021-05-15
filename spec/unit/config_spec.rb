@@ -6,28 +6,32 @@ RSpec.describe Mysqlexport::Config do
   end
 
   it "return correct value for force_quotes" do
-    options["force_quotes"] = "true"
+    options[:force_quotes] = "true"
     expect(Mysqlexport::Config.new(options).force_quotes.class).to eq(TrueClass)
-    options["force_quotes"] = true
+    options[:force_quotes] = true
     expect(Mysqlexport::Config.new(options).force_quotes.class).to eq(TrueClass)
-    options["force_quotes"] = false
+    options[:force_quotes] = false
     expect(Mysqlexport::Config.new(options).force_quotes).to be_nil
-    options["force_quotes"] = "false"
+    options[:force_quotes] = "false"
     expect(Mysqlexport::Config.new(options).force_quotes).to be_nil
-    options["force_quotes"] = "string"
+    options[:force_quotes] = "string"
     expect(Mysqlexport::Config.new(options).force_quotes).to be_nil
-    options["force_quotes"] = nil
+    options[:force_quotes] = nil
     expect(Mysqlexport::Config.new(options).force_quotes).to be_nil
   end
 
   it "select entire table when execute is not present" do
-    options["table"] = "test"
-    expect(Mysqlexport::Config.new(options).execute).to eq("select * from test")
+    expect(Mysqlexport::Config.new(options).execute).to eq("select * from #{options[:table]}")
   end
 
   it "ignore table when execute is present" do
-    options["table"] = "test"
-    options["execute"] = "select ename from table"
+    options[:execute] = "select ename from table"
+    expect(Mysqlexport::Config.new(options).execute).to eq("select ename from table")
+  end
+
+  it "selects execute when table not present" do
+    options.delete(:table)
+    options[:execute] = "select ename from table"
     expect(Mysqlexport::Config.new(options).execute).to eq("select ename from table")
   end
 end
