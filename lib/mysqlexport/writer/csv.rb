@@ -12,7 +12,7 @@ module Mysqlexport
     def to_file(file)
       result = client.query(config.execute, stream: true, cache_rows: false, as: :array)
       csv_o = csv_options
-      file.write result.fields.to_csv(**csv_o)
+      file.write result.fields.to_csv(**csv_o) if config.csv_heading
       result.each do |row|
         file.write row.to_csv(**csv_o)
       end

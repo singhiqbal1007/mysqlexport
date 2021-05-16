@@ -10,7 +10,7 @@ module Mysqlexport
     end
     option :to, {  short: "-T TO",
                    long: "--to=CSV",
-                   description: "Export Mysql to CSV/JSON" }
+                   description: "Export Mysql table to CSV/JSON" }
     option :execute, {  short: "-e EXECUTE",
                         long: "--execute=EXECUTE",
                         description: "The SQL statement to execute" }
@@ -37,9 +37,13 @@ module Mysqlexport
                       type: "json",
                       description: "display json pretty, default is false" }
     option :json_engine, { short: "-j oj",
-                           long: "--json_engine=oj",
+                           long: "--json-engine=oj",
                            type: "json",
                            description: "choose json engine" }
+    option :csv_heading, { short: "-H true",
+                           long: "--csv-heading=true",
+                           type: "csv",
+                           description: "show csv heading, default is true" }
     option :help, { long: "--help",
                     description: "Show help",
                     on: :tail,

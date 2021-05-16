@@ -39,6 +39,10 @@ module Mysqlexport
       user_specified_options[:table]
     end
 
+    def output_path
+      user_specified_options[:output_path]
+    end
+
     # csv options
     def force_quotes
       user_specified_options[:force_quotes].to_s.downcase == "true" || nil
@@ -52,8 +56,8 @@ module Mysqlexport
       user_specified_options[:row_sep]
     end
 
-    def output_path
-      user_specified_options[:output_path]
+    def csv_heading
+      user_specified_options[:csv_heading].to_s.downcase != "false"
     end
 
     # json options
