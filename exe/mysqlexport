@@ -22,7 +22,7 @@ when "json"
     json_engine = options[:json_engine] || ""
     require json_engine
   rescue LoadError
-    puts "[WARNING]: Invalid or no json engine provided using default engine"
+    puts "[WARNING]: Invalid or no json engine provided using default json engine"
   end
   Mysqlexport::Json.new(options).to_path
 else

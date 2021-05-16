@@ -1,5 +1,4 @@
 require "multi_json"
-require "mysqlexport/writer"
 
 module Mysqlexport
   class Json < Writer

@@ -31,8 +31,6 @@ RSpec.describe Mysqlexport::Json do
 
   it "can write to string" do
     options[:execute] = "select `first_name`,`last_name`,`birth_date` from `#{options[:table]}` limit 2"
-    FakeFS.with_fresh do
-      expect(::Mysqlexport::Json.new(options).to_s).to eq("[{\"first_name\":\"Georgi\",\"last_name\":\"Facello\",\"birth_date\":\"1986-06-26\"},{\"first_name\":\"Bezalel\",\"last_name\":\"Simmel\",\"birth_date\":\"1985-11-21\"}]")
-    end
+    expect(::Mysqlexport::Json.new(options).to_s).to eq("[{\"first_name\":\"Georgi\",\"last_name\":\"Facello\",\"birth_date\":\"1986-06-26\"},{\"first_name\":\"Bezalel\",\"last_name\":\"Simmel\",\"birth_date\":\"1985-11-21\"}]")
   end
 end
