@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mysqlexport (0.1.1)
+    mysqlexport (0.2.0.1)
       activerecord (>= 6.1.2.1)
       mixlib-cli (~> 2.1.8)
       multi_json (~> 1.0)

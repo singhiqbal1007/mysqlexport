@@ -5,8 +5,8 @@ Gem::Specification.new do |spec|
   spec.version       = Mysqlexport::VERSION
   spec.authors       = ["Iqbal Singh"]
   spec.email         = ["singhiqbal1007@gmail.com"]
-  spec.summary       = "Export mysql table to csv files"
-  spec.description   = "Gives you binary mysqlexport and Ruby classes to export mysql tables into csv files"
+  spec.summary       = "Export mysql table to csv and json files"
+  spec.description   = "Gives you binary mysqlexport and Ruby classes to export mysql tables into csv and json files"
   spec.homepage      = "https://github.com/singhiqbal1007/mysqlexport"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
